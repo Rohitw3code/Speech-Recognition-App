@@ -10,9 +10,11 @@
         android:id="@+id/speech_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
         android:hint="Speech Text"
         android:textSize="25sp"
+        android:gravity="center"
+        android:layout_margin="20sp"
+        android:layout_centerInParent="true"
         android:singleLine="false"
         android:autofillHints="hold mis and speak" />
 

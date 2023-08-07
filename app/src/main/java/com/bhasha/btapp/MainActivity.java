@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle bundle) {
-
+                mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
             }
 
             @Override
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onEndOfSpeech() {
-
             }
 
             @Override
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if (matches != null){
                     speechtext.setCharacterDelay(50);
                     speechtext.animateText(matches.get(0));
-                    mSpeechRecognizer.stopListening();
+//                    mSpeechRecognizer.stopListening();
                     mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
                 }
 
