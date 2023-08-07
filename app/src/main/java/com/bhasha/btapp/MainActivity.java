@@ -8,27 +8,22 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText editText;
+    private Typewriter speechtext;
+    private RelativeLayout relativeLayout;
     TextToSpeech t1;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -36,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermission();
-
-        editText = findViewById(R.id.editText);
+        
+        relativeLayout = findViewById(R.id.relative_btn);
+        speechtext = findViewById(R.id.speech_text);
         final SpeechRecognizer mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
         final Intent mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -82,10 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
                 //displaying the first match
-                if (matches != null)
-                    editText.setText(matches.get(0));
-                mSpeechRecognizer.stopListening();
-                mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+                if (matches != null){
+                    speechtext.setCharacterDelay(50);
+                    speechtext.animateText(matches.get(0));
+                    mSpeechRecognizer.stopListening();
+                    mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+                }
 
 
             }
@@ -101,66 +99,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask(){
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void run(){
-                        String  str = editText.getText().toString();
-                        if(str.equals("hello")){
-                            editText.setText("Hello, how can i help you");
-                            t1.speak("Hello, how can i help you", TextToSpeech.QUEUE_FLUSH,null,null);
-                        }
-                        if(str.equals("what is your name")){
-                            editText.setText("My name is jarvis sir");
-                            t1.speak("My name is jarvis sir", TextToSpeech.QUEUE_FLUSH,null,null);
-                        }
-                        if(str.equals("how are you")){
-                            editText.setText("I m a robot, i am never tired, sir");
-                            t1.speak("I m a robot, i am never tired, sir", TextToSpeech.QUEUE_FLUSH,null,null);
-                        }
-                        if(str.equals("what can I ask you")){
-                            editText.setText("you can ask me anything to help you");
-                            t1.speak("you can ask me anything to help you", TextToSpeech.QUEUE_FLUSH,null,null);
-                        }
-                        if(str.equals("tell me a joke")){
-                            editText.setText("two sheep said baa in the field, other one said shit i wanna say that");
-                            t1.speak("two sheep said baa in the field, other one said shit i wanna say that", TextToSpeech.QUEUE_FLUSH,null,null);
-                        }
-                        if(str.equals("do you like Trump")){
-                            editText.setText("i will never consider him as a role model");
-                            t1.speak("i will never consider him as a role model", TextToSpeech.QUEUE_FLUSH,null,null);
-                        }
-                        if(str.equals("what is the situation")){
-                            editText.setText("there is an ambush, retreat sir");
-                            t1.speak("there is an ambush, retreat sir", TextToSpeech.QUEUE_FLUSH,null,null);
-                        }
-                        //t1.speak(str, TextToSpeech.QUEUE_FLUSH,null,null);
-                    }
-                },1000);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+        t1 = new TextToSpeech(getApplicationContext(), status -> {
+            if(status!=TextToSpeech.ERROR){
+                t1.setLanguage(Locale.US);
             }
         });
 
-        t1 = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status!=TextToSpeech.ERROR){
-                    t1.setLanguage(Locale.US);
-                }
-            }
+        relativeLayout.setOnClickListener(view -> {
+            mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
         });
 
 
