@@ -1,40 +1,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DeviceListActivity"
-    android:background="#212121">
+    tools:context=".DeviceListActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Paired Devices"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:fontFamily="sans-serif-smallcaps"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#f44336"
-        android:textIsSelectable="false" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paired Devices"
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#2196F3"
+            android:textIsSelectable="false" />
+
+        <ImageView
+            android:layout_width="52sp"
+            android:layout_height="52sp"
+            android:layout_toRightOf="@id/textView"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/device"/>
+
+    </LinearLayout>
+
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Paired Devices"
-        android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:textColor="#212121"
+        android:textColor="@color/white"
+        android:backgroundTint="#03A9F4"
         android:fontFamily="sans-serif-smallcaps"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="#f44336" />
+        android:layout_alignParentEnd="true" />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/linear"
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
         android:layout_above="@+id/button" />
@@ -43,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_below="@+id/linear"
+        android:layout_toRightOf="@+id/linear"
+        android:layout_toEndOf="@+id/linear" />
 
 </RelativeLayout>
