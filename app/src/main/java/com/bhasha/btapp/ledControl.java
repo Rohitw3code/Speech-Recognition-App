@@ -1,6 +1,7 @@
 package com.bhasha.btapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -146,6 +147,7 @@ public class ledControl extends AppCompatActivity {
             progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait!!!");  //show a progress dialog
         }
 
+        @SuppressLint("SuspiciousIndentation")
         @Override
         protected String doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
         {
@@ -192,4 +194,5 @@ public class ledControl extends AppCompatActivity {
                 progress.dismiss();
             }
         }
+
     }

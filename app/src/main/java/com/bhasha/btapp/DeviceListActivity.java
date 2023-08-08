@@ -125,7 +125,7 @@ public class DeviceListActivity extends AppCompatActivity {
                 String address = info.substring(info.length() - 17);
 
                 // Make an intent to start next activity.
-                Intent i = new Intent(DeviceListActivity.this, ledControl.class);
+                Intent i = new Intent(DeviceListActivity.this, MainActivity.class);
 
                 //Change the activity.
                 i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
